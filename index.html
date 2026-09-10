@@ -57,8 +57,15 @@ button{cursor:pointer;border:0;background:none;padding:0}
 .logo .mk{width:26px;height:26px}
 .logo .lt{width:129px;height:18px}
 .tagIA{border:1px solid var(--line);border-radius:4px;padding:2px 6px;font-size:10px;font-weight:700;letter-spacing:.06em;color:var(--muted)}
-.chip-esci{margin-left:auto;border:1px solid var(--line);border-radius:999px;color:var(--muted);font-size:12px;padding:5px 12px}
+.azioniTesta{margin-left:auto;display:flex;align-items:center;gap:8px}
+.chip-esci{border:1px solid var(--line);border-radius:999px;color:var(--muted);font-size:12px;padding:5px 12px}
 .chip-esci:hover{color:var(--cream);border-color:var(--line2)}
+/* Accedi: deve saltare all'occhio, non essere un'altra scelta in mezzo
+   alle altre — per questo il colore acceso invece del grigio spento
+   usato per Esci. */
+.chip-accedi{border:1px solid var(--orange);border-radius:999px;color:var(--orange);font-size:12px;font-weight:700;padding:5px 12px}
+.chip-accedi:hover{background:var(--orange);color:var(--bg)}
+.lato .chip-accedi{display:block;margin:0 12px 12px;text-align:center}
 
 /* titolo sezione */
 .head{flex-shrink:0}
@@ -158,7 +165,7 @@ h1{font-family:var(--disp);font-weight:700;font-size:27px;line-height:1;margin:0
 .lato{order:2;flex-shrink:0;display:flex;flex-direction:column;background:var(--panel);
   border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
 .colonna{order:1}
-.marchio,.lato .profilo,.lato .sep{display:none}
+.marchio,.lato .profilo,.lato .sep,.lato .chip-accedi{display:none}
 .tabs{display:flex}
 .tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 1px 11px;
   border-top:2px solid transparent;position:relative;min-width:0;transition:border-color .18s ease,background .18s ease}
@@ -358,6 +365,7 @@ label.f input:focus,label.f select:focus{border-color:var(--blu)}
   .marchio .mk{width:38px;height:38px;border-radius:11px}
   .marchio .lt{display:none}
   .marchio .tagIA{font-size:9px;padding:1px 5px}
+  .lato .chip-accedi{display:block;font-size:11px;padding:7px 4px}
 
   .tabs{flex-direction:column;gap:3px;padding:0 9px}
   .tab{flex:none;border-top:0;border-radius:11px;padding:11px 3px 10px;gap:5px}
@@ -410,6 +418,7 @@ label.f input:focus,label.f select:focus{border-color:var(--blu)}
   .tab[aria-selected="true"]::before{left:-6px;height:24px}
 
   .lato .profilo{justify-content:flex-start;padding:10px 14px;margin:12px 14px 0;font-size:13px}
+  .lato .chip-accedi{margin:0 14px 14px;font-size:13px;padding:8px 6px}
 
   /* Niente tetto: il contenuto arriva ai bordi. Lo spazio in più si
      riempie aggiungendo colonne, non allungando le righe: una riga di
@@ -496,6 +505,7 @@ html[data-contrasto="1"]{--muted:#B3C0B6;--line:rgba(239,234,224,.22);--line2:rg
       <i class="lt"></i>
       <span class="tagIA">IA</span>
     </div>
+    <button class="chip-accedi hide" id="accediLato">Accedi</button>
     <nav class="tabs" id="tabs" role="tablist" aria-label="Sezioni"></nav>
     <div class="sep"></div>
     <button class="profilo" id="profilo">Esci</button>
@@ -508,7 +518,10 @@ html[data-contrasto="1"]{--muted:#B3C0B6;--line:rgba(239,234,224,.22);--line2:rg
         <i class="lt" role="img" aria-label="IoAtleta"></i>
       </span>
       <span class="tagIA">IA</span>
-      <button class="chip-esci" id="esci">Esci</button>
+      <span class="azioniTesta">
+        <button class="chip-accedi hide" id="accediTop">Accedi</button>
+        <button class="chip-esci" id="esci">Esci</button>
+      </span>
     </div></header>
 
     <div class="head"><div class="wrap">
@@ -3295,6 +3308,12 @@ function render() {
   $("#esci").classList.remove("hide"); $("#esci").textContent = S.prof.nome || "Esci";
   $("#profilo").textContent = S.prof.nome || "Esci";
   $("#lato").classList.remove("hide");
+  /* "Accedi" in alto: visibile solo a chi un account potrebbe averlo ma
+     non ha ancora fatto l'accesso. Chi non ha Supabase configurato non
+     ha nulla a cui accedere, e chi è già dentro vede già il suo nome. */
+  const mostraAccedi = configurato() && !dentro();
+  $("#accediTop").classList.toggle("hide", !mostraAccedi);
+  $("#accediLato").classList.toggle("hide", !mostraAccedi);
   const chatMode = attiva !== "strumenti" && attiva !== "oggi" && attiva !== "impostazioni";
   $(".app").dataset.vista = chatMode ? "chat" : "pannello";
   $("#ask").classList.toggle("hide", !chatMode);
@@ -3358,6 +3377,9 @@ const azzera = async () => {
 };
 $("#esci").onclick = azzera;      /* testata del telefono */
 $("#profilo").onclick = azzera;   /* fondo della colonna di sinistra */
+const apriAccesso = () => { modoAccesso = "entra"; msgAcc = null; schermata = "accesso"; render(); };
+$("#accediTop").onclick = apriAccesso;    /* testata del telefono */
+$("#accediLato").onclick = apriAccesso;   /* cima della colonna di sinistra */
 
 applicaPreferenze();
 render();
