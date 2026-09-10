@@ -1,0 +1,17 @@
+# IoAtleta — ioatleta.vercel.app
+#
+# Qui non c'è niente da nascondere ai motori di ricerca: l'app, le tre
+# pagine pubbliche e i file che servono a disegnarle. Il foglio di stile
+# e il logo restano aperti di proposito — un crawler che non può
+# caricarli vede una pagina rotta e la giudica per quella.
+#
+# I file che non devono stare online, cioè la guida di configurazione e
+# lo schema del database, non si bloccano da qui: robots.txt è pubblico,
+# e scriverci dentro un percorso significa indicarlo a chi lo legge.
+# Quelli sono esclusi dal deploy in .vercelignore, quindi non esistono
+# proprio come indirizzo.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://ioatleta.vercel.app/sitemap.xml

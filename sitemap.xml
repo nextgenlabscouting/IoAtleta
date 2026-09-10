@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  IoAtleta — mappa del sito.
+
+  Quattro indirizzi, che sono tutti quelli pubblici. Gli URL qui dentro
+  devono corrispondere esattamente ai tag <link rel="canonical"> delle
+  pagine: una sitemap che indica /privacy mentre la pagina si dichiara
+  /privacy.html manda due segnali opposti allo stesso motore.
+
+  Non ci sono <changefreq> ne' <priority>: Google dichiara apertamente
+  di ignorarli entrambi, e tenerli significa solo avere due campi in
+  piu' da sbagliare.
+
+  <lastmod> va aggiornato quando il contenuto di una pagina cambia
+  davvero, non a ogni ritocco di stile: se e' sempre la data di oggi
+  smette di essere un'informazione e comincia a essere rumore.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <url>
+    <loc>https://ioatleta.vercel.app/</loc>
+    <lastmod>2026-09-09</lastmod>
+  </url>
+
+  <url>
+    <loc>https://ioatleta.vercel.app/faq.html</loc>
+    <lastmod>2026-09-09</lastmod>
+  </url>
+
+  <url>
+    <loc>https://ioatleta.vercel.app/privacy.html</loc>
+    <lastmod>2026-09-09</lastmod>
+  </url>
+
+  <url>
+    <loc>https://ioatleta.vercel.app/terms.html</loc>
+    <lastmod>2026-09-09</lastmod>
+  </url>
+
+</urlset>

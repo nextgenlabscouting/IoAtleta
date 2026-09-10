@@ -1,0 +1,185 @@
+/* ===================================================================
+   IoAtleta — foglio di stile delle pagine legali pubbliche.
+   Usato da /privacy.html e /terms.html: stanno insieme perché due
+   documenti che dicono le stesse cose devono anche somigliarsi, e
+   perché un colore cambiato in un posto solo è un colore che poi
+   diverge.
+
+   Regola di queste pagine: zero richieste esterne. Niente font di
+   Google, niente CDN, niente script. Una pagina che spiega come
+   trattiamo i dati non può essere la pagina che manda l'indirizzo IP
+   di chi la legge a un server di terze parti prima ancora che abbia
+   finito la prima riga.
+
+   I colori sono gli stessi dell'app. Il carattere no: l'app carica
+   Barlow da Google Fonts, qui si usa quello di sistema.
+   =================================================================== */
+:root{
+  --bg:#0B1410; --panel:#111E17; --alto:#16281E;
+  --line:rgba(239,234,224,.10); --line2:rgba(239,234,224,.20);
+  --cream:#EFEAE0; --testo:#D6D1C6; --muted:#8FA093;
+  --orange:#FF6A2B; --green:#57A45F; --sand:#E8B04B;
+  --disp:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
+  --body:"Barlow",system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--bg);color:var(--testo);
+  font-family:var(--body);font-size:17px;line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* --- salto al contenuto: primo elemento focalizzabile della pagina --- */
+.salta{
+  position:absolute;left:-9999px;top:0;z-index:10;
+  background:var(--orange);color:#0B1410;font-weight:700;
+  padding:12px 18px;border-radius:0 0 10px 0;text-decoration:none;
+}
+.salta:focus{left:0}
+
+a{color:var(--cream);text-decoration:underline;text-underline-offset:3px;
+  text-decoration-color:rgba(255,106,43,.55);text-decoration-thickness:1.5px}
+a:hover{text-decoration-color:var(--orange)}
+:focus-visible{outline:2px solid var(--orange);outline-offset:3px;border-radius:3px}
+
+.contenitore{width:100%;max-width:760px;margin:0 auto;padding:0 22px}
+
+/* --- testata --- */
+.testata{border-bottom:1px solid var(--line);background:rgba(11,20,16,.92);
+  position:sticky;top:0;z-index:5;backdrop-filter:blur(8px)}
+.testata .contenitore{display:flex;align-items:center;justify-content:space-between;
+  gap:16px;padding-top:14px;padding-bottom:14px}
+.marchio{display:flex;align-items:center;gap:10px;text-decoration:none}
+.marchio img{width:32px;height:32px;border-radius:9px;display:block}
+.marchio .parola{font-family:var(--disp);font-size:23px;font-weight:800;
+  letter-spacing:.2px;line-height:1;white-space:nowrap}
+.marchio .io{color:var(--green)}
+.marchio .atleta{color:var(--orange)}
+.ritorno{font-size:14px;color:var(--muted);text-decoration:none;
+  border:1px solid var(--line2);border-radius:999px;padding:7px 15px;white-space:nowrap}
+.ritorno:hover{color:var(--cream);border-color:var(--orange)}
+
+/* --- intestazione del documento --- */
+.apertura{padding:52px 0 8px}
+.occhiello{font-family:var(--disp);text-transform:uppercase;letter-spacing:1.6px;
+  font-size:13px;font-weight:700;color:var(--orange);margin:0 0 10px}
+h1{font-family:var(--disp);font-size:clamp(38px,8vw,58px);line-height:1.02;
+  font-weight:800;color:var(--cream);margin:0 0 14px;letter-spacing:-.5px}
+.datazione{font-size:14.5px;color:var(--muted);margin:0}
+.datazione b{color:var(--testo);font-weight:600}
+
+/* --- riquadro "in breve" --- */
+.breve{background:var(--panel);border:1px solid var(--line);
+  border-left:3px solid var(--green);border-radius:12px;
+  padding:22px 24px;margin:34px 0 0}
+.breve h2{font-family:var(--disp);font-size:20px;text-transform:uppercase;
+  letter-spacing:1.2px;color:var(--cream);margin:0 0 12px;font-weight:700}
+.breve ul{margin:0;padding-left:20px}
+.breve li{margin:0 0 9px;font-size:16px;line-height:1.6}
+.breve li:last-child{margin-bottom:0}
+.breve .nota{margin:16px 0 0;font-size:14px;color:var(--muted);line-height:1.55}
+
+/* --- indice --- */
+.indice{margin:34px 0 0;border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);padding:22px 0}
+.indice h2{font-family:var(--disp);font-size:15px;text-transform:uppercase;
+  letter-spacing:1.4px;color:var(--muted);margin:0 0 14px;font-weight:700}
+.indice ol{margin:0;padding:0;list-style:none;
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 26px;
+  counter-reset:voce}
+.indice li{counter-increment:voce;font-size:15px;line-height:1.45}
+.indice a{text-decoration:none;color:var(--testo);display:block;padding:2px 0}
+.indice a::before{content:counter(voce) ".";color:var(--orange);
+  font-weight:700;margin-right:8px;font-variant-numeric:tabular-nums}
+.indice a:hover{color:var(--cream)}
+
+/* --- corpo --- */
+main{padding-bottom:20px}
+section{margin:44px 0 0;scroll-margin-top:80px}
+h2.titolo{font-family:var(--disp);font-size:clamp(24px,4.5vw,31px);line-height:1.15;
+  font-weight:700;color:var(--cream);margin:0 0 4px;letter-spacing:-.2px;
+  display:flex;gap:12px;align-items:baseline}
+h2.titolo .n{color:var(--orange);font-size:.62em;font-weight:800;
+  font-variant-numeric:tabular-nums;flex:none}
+h2.titolo + .filo{height:2px;background:linear-gradient(90deg,var(--orange),transparent);
+  margin:0 0 18px;border-radius:2px}
+h3{font-family:var(--body);font-size:17px;font-weight:700;color:var(--cream);
+  margin:26px 0 6px}
+p{margin:0 0 15px}
+ul.punti{margin:0 0 15px;padding-left:22px}
+ul.punti li{margin:0 0 8px}
+strong,b{color:var(--cream);font-weight:600}
+.dato{color:var(--sand);font-weight:600}
+
+/* --- pagina non trovata ---
+   Un vicolo cieco è il posto peggiore dove lasciare qualcuno. Qui si
+   dice cos'è successo in una riga e si offrono subito le strade che
+   esistono davvero. */
+.errore{text-align:center;padding:64px 0 30px}
+.errore .codice{font-family:var(--disp);font-size:clamp(78px,19vw,124px);line-height:.88;
+  font-weight:800;color:var(--orange);letter-spacing:-3px;margin:0}
+.errore h1{margin:16px 0 14px}
+.errore p{max-width:47ch;margin-left:auto;margin-right:auto}
+.strade{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:30px 0 0}
+.azione,.strada{display:inline-block;text-decoration:none;border-radius:9px;
+  font-weight:600;line-height:1.2}
+.azione{background:var(--orange);color:#0B1410;font-weight:700;padding:14px 26px}
+.azione:hover{background:#FF8250;color:#0B1410}
+.strada{border:1px solid var(--line2);color:var(--testo);padding:13px 22px}
+.strada:hover{border-color:var(--orange);color:var(--cream)}
+
+/* --- domande frequenti --- */
+.faq h3{margin:28px 0 8px;font-size:18px;line-height:1.35;padding-left:15px;
+  border-left:2px solid var(--orange)}
+.faq section > h3:first-of-type{margin-top:22px}
+.faq .occhiello{color:var(--green)}
+
+/* --- riquadri di richiamo --- */
+.richiamo{background:var(--alto);border:1px solid var(--line);border-radius:12px;
+  padding:18px 20px;margin:0 0 15px}
+.richiamo p:last-child{margin-bottom:0}
+.richiamo.attenzione{border-left:3px solid var(--sand)}
+.richiamo.stato{border-left:3px solid var(--green)}
+
+/* --- scheda contatti --- */
+.contatti{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+  padding:20px 22px;margin:0 0 15px}
+.contatti dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:9px 18px;
+  font-size:16px}
+.contatti dt{color:var(--muted);white-space:nowrap}
+.contatti dd{margin:0;color:var(--cream)}
+
+/* --- piè di pagina --- */
+footer{border-top:1px solid var(--line);margin-top:56px;padding:30px 0 46px;
+  font-size:14.5px;color:var(--muted)}
+footer p{margin:0 0 8px}
+footer .righe{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:14px}
+
+@media (max-width:620px){
+  body{font-size:16px}
+  .indice ol{grid-template-columns:1fr}
+  .apertura{padding-top:38px}
+  .marchio .parola{font-size:20px}
+  .contatti dl{grid-template-columns:1fr;gap:2px}
+  .contatti dt{margin-top:8px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
+
+/* --- stampa: una pagina legale deve poter finire su carta --- */
+@media print{
+  :root{--bg:#fff;--panel:#fff;--alto:#fff;--cream:#000;--testo:#1a1a1a;
+    --muted:#444;--line:#ccc;--line2:#999}
+  body{background:#fff;color:#000;font-size:11pt}
+  .testata{position:static;border-bottom:1px solid #ccc}
+  .ritorno,.salta,.indice{display:none}
+  a{color:#000;text-decoration:underline}
+  a[href^="http"]::after{content:" (" attr(href) ")";font-size:9pt;color:#555}
+  section{page-break-inside:avoid;margin-top:22px}
+  h1{font-size:26pt}
+  .breve,.richiamo,.contatti{border:1px solid #ccc}
+}
